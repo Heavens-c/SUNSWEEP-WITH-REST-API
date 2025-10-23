@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SUNSWEEP Robot Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🤖 SUNSWEEP Robot Dashboard</h1>
+            <p class="subtitle">Real-time Robot Monitoring & Control</p>
+        </header>
+
+        <div class="dashboard">
+            <!-- Status Overview -->
+            <section class="card status-card">
+                <h2>Robot Status</h2>
+                <div class="status-grid">
+                    <div class="status-item">
+                        <span class="label">Status:</span>
+                        <span class="value" id="robot-status">Idle</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="label">Battery:</span>
+                        <span class="value" id="battery-level">100%</span>
+                        <div class="battery-bar">
+                            <div class="battery-fill" id="battery-fill" style="width: 100%;"></div>
+                        </div>
+                    </div>
+                    <div class="status-item">
+                        <span class="label">Temperature:</span>
+                        <span class="value" id="temperature">25°C</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="label">Position:</span>
+                        <span class="value" id="position">X: 0, Y: 0</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="label">Mode:</span>
+                        <span class="value" id="cleaning-mode">Auto</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="label">Last Update:</span>
+                        <span class="value" id="last-update">--</span>
+                    </div>
+                </div>
+                <div class="error-display" id="error-display" style="display: none;">
+                    <strong>⚠️ Error:</strong>
+                    <span id="error-message"></span>
+                </div>
+            </section>
+
+            <!-- Control Panel -->
+            <section class="card control-card">
+                <h2>Control Panel</h2>
+                <div class="control-buttons">
+                    <button class="btn btn-success" onclick="sendCommand('start')">▶️ Start</button>
+                    <button class="btn btn-warning" onclick="sendCommand('pause')">⏸️ Pause</button>
+                    <button class="btn btn-danger" onclick="sendCommand('stop')">⏹️ Stop</button>
+                    <button class="btn btn-info" onclick="sendCommand('return_home')">🏠 Return Home</button>
+                </div>
+                <div class="mode-buttons">
+                    <h3>Cleaning Mode</h3>
+                    <button class="btn btn-mode" onclick="sendCommand('auto')">🔄 Auto</button>
+                    <button class="btn btn-mode" onclick="sendCommand('spot')">🎯 Spot</button>
+                    <button class="btn btn-mode" onclick="sendCommand('edge')">📐 Edge</button>
+                </div>
+            </section>
+
+            <!-- Notification Settings -->
+            <section class="card settings-card">
+                <h2>Notification Settings</h2>
+                <div class="settings-grid">
+                    <div class="setting-item">
+                        <label>
+                            <input type="checkbox" id="email-enabled" onchange="updateConfig()">
+                            Enable Email Notifications
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <label>
+                            <input type="checkbox" id="sms-enabled" onchange="updateConfig()">
+                            Enable SMS Notifications
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <label>
+                            <input type="checkbox" id="email-on-error" onchange="updateConfig()">
+                            Email on Error
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <label>
+                            <input type="checkbox" id="sms-on-error" onchange="updateConfig()">
+                            SMS on Error
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <label>
+                            <input type="checkbox" id="email-on-low-battery" onchange="updateConfig()">
+                            Email on Low Battery
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <label>
+                            <input type="checkbox" id="sms-on-low-battery" onchange="updateConfig()">
+                            SMS on Low Battery
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <label>
+                            Low Battery Threshold:
+                            <input type="number" id="low-battery-threshold" min="0" max="100" value="20" onchange="updateConfig()">%
+                        </label>
+                    </div>
+                </div>
+                <div class="test-buttons">
+                    <button class="btn btn-secondary" onclick="testNotification('email')">📧 Test Email</button>
+                    <button class="btn btn-secondary" onclick="testNotification('sms')">📱 Test SMS</button>
+                </div>
+            </section>
+
+            <!-- Status History -->
+            <section class="card history-card">
+                <h2>Status History</h2>
+                <div class="history-container" id="history-container">
+                    <p class="no-data">No history data available</p>
+                </div>
+            </section>
+        </div>
+
+        <footer>
+            <p>SUNSWEEP Robot Dashboard - Our Lady of Fatima University Capstone Thesis</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
